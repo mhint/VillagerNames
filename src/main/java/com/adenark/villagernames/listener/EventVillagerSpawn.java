@@ -40,7 +40,7 @@ public class EventVillagerSpawn implements Listener {
 
     /**
      * When a player right-clicks an entity, this event is fired.
-     * This code checks and runs a probability calculation to see whether the villager should
+     * This code checks and runs a probability calculation to see whether a villager should
      * have a custom name.
      *
      * @param event PlayerInteractEntityEvent
@@ -63,14 +63,15 @@ public class EventVillagerSpawn implements Listener {
     /**
      * @see EventVillagerSpawn#onPlayerInteractEntity(PlayerInteractEntityEvent)
      * @param villager Villager
-     * @param rand Is the custom name attaching to a villager random?
+     * @param rand Is the custom name being assigned to a villager random?
      * @return Whether the villager has been right-clicked before.
      */
     public static boolean performVillagerTag(final Villager villager, boolean rand) {
-        // Checks whether Villager has been
+        // Checks whether a villager has been named
         PersistentDataContainer persistentData = villager.getPersistentDataContainer();
         if (persistentData.get(new NamespacedKey(VillagerNames.getInstance(), "villager_name"),
-                PersistentDataType.STRING) == null) {
+            PersistentDataType.STRING) == null) {
+
             // Calculate random chance of village having custom name
             double randomNum = Math.random();
 
@@ -85,7 +86,7 @@ public class EventVillagerSpawn implements Listener {
                 );
             }
 
-            // Spawn with custom name if chance is met
+            // Spawn with a custom name with a certain chance
             if (randomNum <= VillagerNames.NAME_POTENTIAL) {
                 // Generate a custom name
                 int randomIndex = new Random().nextInt(VillagerNames.NAMES.size());
@@ -93,10 +94,10 @@ public class EventVillagerSpawn implements Listener {
                 persistentData.set(new NamespacedKey(VillagerNames.getInstance(), "villager_name"),
                     PersistentDataType.STRING, villagerName);
                 if (villager.getProfession() != Villager.Profession.NONE) {
-                    // Set Villagers' custom name with profession
+                    // Set villagers' custom names to have their profession
                     setProfessionName(villager, villagerName);
                 } else {
-                    // Set Villagers' custom name
+                    // Set villagers' custom name
                     String custom_name = VillagerNames.NAME_DISPLAY;
                     custom_name = custom_name.replaceAll("%custom_name%", villagerName);
                     villager.setCustomName(custom_name);
