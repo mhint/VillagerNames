@@ -25,7 +25,7 @@ public class VillagerNames extends JavaPlugin {
     public static boolean NAME_VISIBLE;
     public static double NAME_POTENTIAL;
     public static String NAME_DISPLAY;
-    public static String NAME_DISPLAY_WITH_PROFF;
+    public static String NAME_DISPLAY_WITH_PROFESSION;
     public static List<String> NAMES;
 
     private void loadConfiguredVariables() {
@@ -33,7 +33,7 @@ public class VillagerNames extends JavaPlugin {
         NAME_POTENTIAL = getConfig().getDouble("name_potential");
         NAME_DISPLAY = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(getConfig()
             .getString("display_name")));
-        NAME_DISPLAY_WITH_PROFF = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(
+        NAME_DISPLAY_WITH_PROFESSION = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(
             getConfig().getString("display_name_with_profession"))
         );
         DEBUG = getConfig().getBoolean("debug");

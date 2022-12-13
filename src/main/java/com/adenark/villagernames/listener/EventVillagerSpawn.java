@@ -115,7 +115,7 @@ public class EventVillagerSpawn implements Listener {
     }
 
     static void setProfessionName(Villager villager, String villagerName) {
-        String custom_name = VillagerNames.NAME_DISPLAY_WITH_PROFF;
+        String custom_name = VillagerNames.NAME_DISPLAY_WITH_PROFESSION;
         String profession = villager.getProfession().name();
         profession = profession.substring(0, 1).toUpperCase() + profession.substring(1).toLowerCase();
         custom_name = custom_name.replaceAll("%profession%", profession);
