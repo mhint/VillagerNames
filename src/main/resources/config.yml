@@ -1,25 +1,22 @@
-# Villagers Names Configuration file
-# Created by Mancdev.com
+# VillagerNames Configuration file
 
-#
+# Keep disabled if you are not sure what this is
+debug: false
+
 # Enable to show villager names without hovering over them
 name_visible: true
 
-#
 # Potential chance that a villager will have a custom name
-# (1.0 = 100% chance of spawning with name)
-# (0.45 = 45% chance of spawning with name)
-name_potential: 0.45
+# For example, 0.45 = 45% chance of spawning with name
+name_potential: 1.0
 
-#
 # Full display names for Villager
 display_name: "%custom_name%"
-display_name_with_profession: "%custom_name% The %profession%"
+display_name_with_profession: "%custom_name% the %profession%"
 
-#
 # List of villager names
-# ChatColor formatting: https://minecraft.gamepedia.com/Formatting_codes
-# i.e. - "&c Jacob" will be displayed as red
+# Chat color formatting: https://minecraft.gamepedia.com/Formatting_codes
+# For example, "&cJacob" will be displayed in red
 villager_names:
   - "Merek"
   - "Merek"
@@ -159,9 +156,5 @@ villager_names:
   - "Iseult"
   - "Brangian"
   - "Elspeth"
-  - "&6James"
-  - "&6Daniel"
-
-#
-# Keep disabled if you are not sure what this is?
-debug: false
+  - "James"
+  - "Daniel"
