@@ -1,42 +1,26 @@
 package com.adenark.villagernames;
 
-import com.adenark.villagernames.command.HelpCmd;
-import com.adenark.villagernames.listener.EventVillagerSpawn;
-import org.bukkit.ChatColor;
-import org.bukkit.Server;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
+import com.adenark.villagernames.command.HelpCmd;
+import com.adenark.villagernames.listener.EventVillagerSpawn;
 
-/**
- * Spigot VillagerNames plugin
- *
- * @version 1.1
- * @author Mancdev
- * @website https://mancdev.com
- */
 public class VillagerNames extends JavaPlugin {
+    public static VillagerNames getInstance() {
+        Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("VillagerNames");
+        if (!(plugin instanceof VillagerNames)) {
+            throw new RuntimeException("'VillagerNames' not found.");
+        } else {
+            return (VillagerNames)plugin;
+        }
+    }
 
-    /*
-        Static access
-     */
-    public static VillagerNames instance;
-
-    /*
-        Spigot configuration files
-     */
-    private File configFile;
-    private FileConfiguration config;
-
-    /*
-        Plugin Config objects
-     */
     public static boolean DEBUG;
     public static boolean NAME_VISIBLE;
     public static double NAME_POTENTIAL;
@@ -44,47 +28,31 @@ public class VillagerNames extends JavaPlugin {
     public static String NAME_DISPLAY_WITH_PROFF;
     public static List<String> NAMES;
 
-
-    /**
-     * Enables the plugin.
-     */
-    @Override
-    public void onEnable() {
-        // Static access
-        instance = this;
-
-        // Load configuration file
-        this.initConfig();
-
-        // Set configuration objects
+    private void loadConfiguredVariables() {
         NAME_VISIBLE = getConfig().getBoolean("name_visible");
         NAME_POTENTIAL = getConfig().getDouble("name_potential");
-        NAME_DISPLAY = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(getConfig().getString("display_name")));
-        NAME_DISPLAY_WITH_PROFF = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(getConfig().getString("display_name_with_profession")));
+        NAME_DISPLAY = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(getConfig()
+            .getString("display_name")));
+        NAME_DISPLAY_WITH_PROFF = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(
+            getConfig().getString("display_name_with_profession"))
+        );
         DEBUG = getConfig().getBoolean("debug");
         NAMES = getConfig().getStringList("villager_names");
+    }
 
-        // Register commands
-        getCommand("va").setExecutor(new HelpCmd());
+    @Override
+    public void onEnable() {
+        Logger logger = getLogger();
 
-        // Register listeners
+        saveDefaultConfig();
+        loadConfiguredVariables();
+
+        getCommand("villagernames").setExecutor(new HelpCmd());
         getServer().getPluginManager().registerEvents(new EventVillagerSpawn(), this);
 
-        // Enabled message
-        String enableMessage = "&r\n" +
-                "&r\n" +
-                "&c▉▉▉▉▉▉▉▉▉ &a&l(!) &aVillageNames has been enabled! \n" +
-                "&c▉▉▉&f▉▉▉&c▉▉▉" + "\n" +
-                "&c▉▉▉&f▉▉▉&c▉▉▉" + "\n" +
-                "&c▉▉▉&f▉▉▉&c▉▉▉ Loaded villager names: " + NAMES.size() + "\n" +
-                "&c▉▉▉&f▉▉▉&c▉▉▉ Version: " + getDescription().getVersion() + "\n" +
-                "&c▉▉▉&f▉▉▉&c▉▉▉ Website: " + getDescription().getWebsite()  + "\n" +
-                "&c▉▉▉▉▉▉▉▉▉ " + "\n" +
-                "&c▉▉▉&f▉▉▉&c▉▉▉" + "\n" +
-                "&c▉▉▉▉▉▉▉▉▉" + "\n" +
-                "&r Made by &cMancdev" + "\n" +
-                "&r";
-        this.getServer().getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', enableMessage));
+        logger.log(Level.INFO, "VillagerNames has been enabled!");
+        logger.log(Level.INFO, "Loaded villager names: {0}", NAMES.size());
+        logger.log(Level.INFO, "Version: {0}", getDescription().getVersion());
     }
 
     @Override
@@ -92,29 +60,4 @@ public class VillagerNames extends JavaPlugin {
         // Save configuration file
         saveResource("config.yml", false);
     }
-
-    /**
-     * Initalise the plugin's config file.
-     * If the file does not exist then copy from within
-     * the plugin.jar file.
-     */
-    private void initConfig() {
-        this.configFile = new File(getDataFolder(), "config.yml");
-        if (!this.configFile.exists()) {
-            this.configFile.getParentFile().mkdirs();
-            saveResource("config.yml", false);
-        }
-        this.config = new YamlConfiguration();
-        try {
-            this.config.load(this.configFile);
-        } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static Server server() {
-        return instance.getServer();
-    }
-
-
 }

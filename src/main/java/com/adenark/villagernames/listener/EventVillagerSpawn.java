@@ -36,8 +36,8 @@ public class EventVillagerSpawn implements Listener {
     public void onVillagerAcquireTrade(VillagerAcquireTradeEvent event) {
         if (event.getEntity().getCustomName() != null) {
             PersistentDataContainer persistentData = event.getEntity().getPersistentDataContainer();
-            if (persistentData.get(new NamespacedKey(VillagerNames.instance, "villager_name"), PersistentDataType.STRING) != null) {
-                setProffName((Villager) event.getEntity(), persistentData.get(new NamespacedKey(VillagerNames.instance, "villager_name"), PersistentDataType.STRING));
+            if (persistentData.get(new NamespacedKey(VillagerNames.getInstance(), "villager_name"), PersistentDataType.STRING) != null) {
+                setProffName((Villager) event.getEntity(), persistentData.get(new NamespacedKey(VillagerNames.getInstance(), "villager_name"), PersistentDataType.STRING));
             }
         }
     }
@@ -72,7 +72,7 @@ public class EventVillagerSpawn implements Listener {
     public static boolean performVillagerTag(final Villager villager, boolean rand) {
         // Checks whether Villager has been
         PersistentDataContainer persistentData = villager.getPersistentDataContainer();
-        if (persistentData.get(new NamespacedKey(VillagerNames.instance, "villager_name"), PersistentDataType.STRING) == null) {
+        if (persistentData.get(new NamespacedKey(VillagerNames.getInstance(), "villager_name"), PersistentDataType.STRING) == null) {
             // Calculate random chance of village having custom name
             double randomNum = Math.random();
 
@@ -81,9 +81,9 @@ public class EventVillagerSpawn implements Listener {
 
             // Debug message
             if (VillagerNames.DEBUG) {
-                VillagerNames.server().getConsoleSender().sendMessage(
-                        ChatColor.GREEN + "[Debug] " + ChatColor.RESET +
-                                "Villager percent chance: " + ChatColor.WHITE + (float) randomNum + "/" + VillagerNames.NAME_POTENTIAL
+                VillagerNames.getInstance().getServer().getConsoleSender().sendMessage(
+                    ChatColor.GREEN + "[Debug] " + ChatColor.RESET +
+                        "Villager percent chance: " + ChatColor.WHITE + (float) randomNum + "/" + VillagerNames.NAME_POTENTIAL
                 );
             }
 
@@ -92,7 +92,7 @@ public class EventVillagerSpawn implements Listener {
                 // Generate a custom name
                 int randomIndex = new Random().nextInt(VillagerNames.NAMES.size());
                 final String villagerName = VillagerNames.NAMES.get(randomIndex);
-                persistentData.set(new NamespacedKey(VillagerNames.instance, "villager_name"), PersistentDataType.STRING, villagerName);
+                persistentData.set(new NamespacedKey(VillagerNames.getInstance(), "villager_name"), PersistentDataType.STRING, villagerName);
                 if (villager.getProfession() != Villager.Profession.NONE) {
                     // Set Villagers' custom name with profession
                     setProffName(villager, villagerName);
@@ -107,7 +107,7 @@ public class EventVillagerSpawn implements Listener {
                 }
                 return true;
             } else {
-                persistentData.set(new NamespacedKey(VillagerNames.instance, "villager_name"), PersistentDataType.STRING, NO_TAG);
+                persistentData.set(new NamespacedKey(VillagerNames.getInstance(), "villager_name"), PersistentDataType.STRING, NO_TAG);
             }
         }
         return false;
