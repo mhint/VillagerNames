@@ -1,7 +1,6 @@
-package com.mancdev.vnames.listener;
+package com.adenark.villagernames.listener;
 
-import com.mancdev.vnames.VillagerNames;
-import org.bukkit.Bukkit;
+import com.adenark.villagernames.VillagerNames;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;

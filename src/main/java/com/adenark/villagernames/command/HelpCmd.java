@@ -1,6 +1,6 @@
-package com.mancdev.vnames.command;
+package com.adenark.villagernames.command;
 
-import com.mancdev.vnames.VillagerNames;
+import com.adenark.villagernames.VillagerNames;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

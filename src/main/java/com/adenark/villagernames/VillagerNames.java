@@ -1,7 +1,7 @@
-package com.mancdev.vnames;
+package com.adenark.villagernames;
 
-import com.mancdev.vnames.command.HelpCmd;
-import com.mancdev.vnames.listener.EventVillagerSpawn;
+import com.adenark.villagernames.command.HelpCmd;
+import com.adenark.villagernames.listener.EventVillagerSpawn;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.configuration.InvalidConfigurationException;

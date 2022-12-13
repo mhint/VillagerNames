@@ -1,7 +1,7 @@
 name: VillagerNames
 version: 1.3
 author: Mancdev
-main: com.mancdev.vnames.VillagerNames
+main: com.adenark.villagernames.VillagerNames
 website: https://mancdev.com
 commands:
   va:
