@@ -1,8 +1,7 @@
 name: VillagerNames
-version: 1.3
-author: Mancdev
+version: 1.0-SNAPSHOT
+authors: [adenark, Mancdev]
 main: com.adenark.villagernames.VillagerNames
-website: https://mancdev.com
 commands:
   va:
     description: VillagerNames plugin help
