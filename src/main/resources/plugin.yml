@@ -3,8 +3,7 @@ version: 1.0-SNAPSHOT
 authors: [adenark, Mancdev]
 main: com.adenark.villagernames.VillagerNames
 commands:
-  va:
+  villagernames:
     description: VillagerNames plugin help
     usage: /<command>
     permission: villagernames.help
-    aliases: [va, villagernames]
