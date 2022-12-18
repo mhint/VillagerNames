@@ -1,7 +1,9 @@
+main: com.adenark.villagernames.VillagerNames
 name: VillagerNames
 version: 1.0-SNAPSHOT
+api-version: 1.19
+description: This plugin assigns Minecraft villagers a randomized name.
 authors: [adenark, Mancdev]
-main: com.adenark.villagernames.VillagerNames
 commands:
   villagernames:
     description: VillagerNames plugin help
