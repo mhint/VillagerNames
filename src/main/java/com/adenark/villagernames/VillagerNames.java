@@ -17,26 +17,27 @@ public class VillagerNames extends JavaPlugin {
         if (!(plugin instanceof VillagerNames)) {
             throw new RuntimeException("'VillagerNames' not found.");
         } else {
-            return (VillagerNames)plugin;
+            return (VillagerNames) plugin;
         }
     }
 
     public static boolean DEBUG;
-    public static boolean NAME_VISIBLE;
-    public static double NAME_POTENTIAL;
-    public static String NAME_DISPLAY;
-    public static String NAME_DISPLAY_WITH_PROFESSION;
+    public static boolean SET_CUSTOM_NAME_VISIBLE;
+    public static boolean DISPLAY_NAMES_WITH_PROFESSION;
+    public static double SPAWN_WITH_NAME_CHANCE;
+    public static String FULL_DISPLAY_NAME;
+    public static String FULL_DISPLAY_NAME_WITH_PROFESSION;
     public static List<String> NAMES;
 
     private void loadConfiguredVariables() {
-        NAME_VISIBLE = getConfig().getBoolean("name_visible");
-        NAME_POTENTIAL = getConfig().getDouble("name_potential");
-        NAME_DISPLAY = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(getConfig()
-            .getString("display_name")));
-        NAME_DISPLAY_WITH_PROFESSION = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(
-            getConfig().getString("display_name_with_profession"))
-        );
         DEBUG = getConfig().getBoolean("debug");
+        SET_CUSTOM_NAME_VISIBLE = getConfig().getBoolean("set_custom_name_visible");
+        DISPLAY_NAMES_WITH_PROFESSION = getConfig().getBoolean("display_names_with_profession");
+        SPAWN_WITH_NAME_CHANCE = getConfig().getDouble("spawn_with_name_chance");
+        FULL_DISPLAY_NAME = ChatColor.translateAlternateColorCodes('&',
+            Objects.requireNonNull(getConfig().getString("full_display_name")));
+        FULL_DISPLAY_NAME_WITH_PROFESSION = ChatColor.translateAlternateColorCodes('&',
+            Objects.requireNonNull(getConfig().getString("full_display_name_with_profession")));
         NAMES = getConfig().getStringList("villager_names");
     }
 
@@ -57,7 +58,6 @@ public class VillagerNames extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Save configuration file
         saveResource("config.yml", false);
     }
 }

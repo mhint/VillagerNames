@@ -1,21 +1,24 @@
 # VillagerNames configuration file
 
-# Keep disabled if you are not sure what this is
+# Show debug messages
 debug: false
 
 # Enable to show villager names without hovering over them
-name_visible: true
+set_custom_name_visible: true
+
+# Whether to include the villager's profession in the name
+display_names_with_profession: false
 
 # Potential chance that a villager will have a custom name (values 0 - 1)
-name_potential: 1.0
+spawn_with_name_chance: 1.0
 
-# Full display names for Villager
-display_name: "%custom_name%"
-display_name_with_profession: "%custom_name% the %profession%"
+# Full display name for a villager without a profession
+full_display_name: "%name%"
+
+# Full display name for a villager with a profession
+full_display_name_with_profession: "%name% the %profession%"
 
 # List of villager names
-# Supports chat color formatting, e.g., "&cJacob" will display in red
-# https://minecraft.gamepedia.com/Formatting_codes
 villager_names:
   - "Merek"
   - "Carac"

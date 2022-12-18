@@ -17,7 +17,7 @@ public class HelpCmd implements CommandExecutor {
         commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', "Names loaded: " +
             VillagerNames.NAMES.size()));
         commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', "Chance: : " +
-            VillagerNames.NAME_POTENTIAL * 100 + "%"));
+            VillagerNames.SPAWN_WITH_NAME_CHANCE * 100 + "%"));
         commandSender.sendMessage("");
         return true;
     }
