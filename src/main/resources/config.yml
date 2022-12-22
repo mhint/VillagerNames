@@ -1,16 +1,10 @@
 # VillagerNames configuration file
 
-# Show debug messages
-debug: false
-
 # Enable to show villager names without hovering over them
 set_custom_name_visible: true
 
 # Whether to include the villager's profession in the name
 display_names_with_profession: false
-
-# Potential chance that a villager will have a custom name (values 0 - 1)
-spawn_with_name_chance: 1.0
 
 # Full display name for a villager without a profession
 full_display_name: "%name%"

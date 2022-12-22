@@ -12,12 +12,8 @@ public class HelpCmd implements CommandExecutor {
         commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a[Plugin]: &r" +
             VillagerNames.getInstance().getName()));
         commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a[Config]"));
-        commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', "Debug mode: " +
-            VillagerNames.DEBUG));
         commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', "Names loaded: " +
             VillagerNames.NAMES.size()));
-        commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', "Chance: : " +
-            VillagerNames.SPAWN_WITH_NAME_CHANCE * 100 + "%"));
         commandSender.sendMessage("");
         return true;
     }

@@ -24,7 +24,6 @@ public class VillagerNames extends JavaPlugin {
     public static boolean DEBUG;
     public static boolean SET_CUSTOM_NAME_VISIBLE;
     public static boolean DISPLAY_NAMES_WITH_PROFESSION;
-    public static double SPAWN_WITH_NAME_CHANCE;
     public static String FULL_DISPLAY_NAME;
     public static String FULL_DISPLAY_NAME_WITH_PROFESSION;
     public static List<String> NAMES;
@@ -33,7 +32,6 @@ public class VillagerNames extends JavaPlugin {
         DEBUG = getConfig().getBoolean("debug");
         SET_CUSTOM_NAME_VISIBLE = getConfig().getBoolean("set_custom_name_visible");
         DISPLAY_NAMES_WITH_PROFESSION = getConfig().getBoolean("display_names_with_profession");
-        SPAWN_WITH_NAME_CHANCE = getConfig().getDouble("spawn_with_name_chance");
         FULL_DISPLAY_NAME = ChatColor.translateAlternateColorCodes('&',
             Objects.requireNonNull(getConfig().getString("full_display_name")));
         FULL_DISPLAY_NAME_WITH_PROFESSION = ChatColor.translateAlternateColorCodes('&',
