@@ -4,12 +4,12 @@
 set_custom_name_visible: true
 
 # Whether to include the villager's profession in the name
-display_names_with_profession: false
+display_names_with_profession: true
 
-# Full display name for a villager without a profession
+# Display name to use for a villager if the above option is false
 full_display_name: "%name%"
 
-# Full display name for a villager with a profession
+# Display name to use for a villager if the above option is true
 full_display_name_with_profession: "%name% the %profession%"
 
 # List of villager names
