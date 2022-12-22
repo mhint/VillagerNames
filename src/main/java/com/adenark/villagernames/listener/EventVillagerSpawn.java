@@ -42,7 +42,7 @@ public class EventVillagerSpawn implements Listener {
 
     /**
      * When a player right-clicks an entity, this event is fired.
-     * A probability calculation is run to to determine whether a villager will be assigned a custom name.
+     * A probability calculation is run to determine whether a villager will be assigned a custom name.
      *
      * @param event PlayerInteractEntityEvent
      */
@@ -101,7 +101,7 @@ public class EventVillagerSpawn implements Listener {
                 if (VillagerNames.SET_CUSTOM_NAME_VISIBLE) villager.setCustomNameVisible(true);
                 return true;
             } else {
-                persistentData.set(new NamespacedKey(VillagerNames.getInstance(), "villager_name"),
+                persistentData.set(new NamespacedKey(VillagerNames.getInstance(), "name"),
                     PersistentDataType.STRING, NO_TAG);
             }
         }
