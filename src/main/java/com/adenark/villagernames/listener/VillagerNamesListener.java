@@ -18,29 +18,9 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.adenark.villagernames.VillagerNames;
 
-public class EventVillagerSpawn implements Listener {
+public class VillagerNamesListener implements Listener {
     private static final JavaPlugin plugin = VillagerNames.getInstance();
     private static final String nameKey = "name";
-
-    /**
-     * When a villager acquires a trade, this event is fired. If the villager already has a name, the villager's name
-     * will display its profession.
-     *
-     * @param event VillagerAcquireTradeEvent
-     */
-    @EventHandler(priority = EventPriority.NORMAL)
-    public void onVillagerAcquireTrade(VillagerAcquireTradeEvent event) {
-        if (!VillagerNames.DISPLAY_NAMES_WITH_PROFESSION) return;
-        if (event.getEntity().customName() == null) return;
-        PersistentDataContainer persistentData = event.getEntity().getPersistentDataContainer();
-        if (persistentData.get(new NamespacedKey(plugin, nameKey), PersistentDataType.STRING) != null) {
-            setVillagerCustomName(
-                (Villager) event.getEntity(),
-                persistentData.get(new NamespacedKey(plugin, nameKey),
-                PersistentDataType.STRING),
-                true);
-        }
-    }
 
     /**
      * When a player right-clicks an entity, this event is fired.
@@ -60,7 +40,28 @@ public class EventVillagerSpawn implements Listener {
     }
 
     /**
-     * @see EventVillagerSpawn#onPlayerInteractEntity(PlayerInteractEntityEvent)
+     * When a villager acquires a trade, this event is fired. If configured to display professions, the villager
+     * name will append its profession.
+     *
+     * @see VillagerNames#FULL_DISPLAY_NAME_WITH_PROFESSION
+     * @param event VillagerAcquireTradeEvent
+     */
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onVillagerAcquireTrade(VillagerAcquireTradeEvent event) {
+        if (!VillagerNames.DISPLAY_NAMES_WITH_PROFESSION) return;
+        if (event.getEntity().customName() == null) return;
+        PersistentDataContainer persistentData = event.getEntity().getPersistentDataContainer();
+        if (persistentData.get(new NamespacedKey(plugin, nameKey), PersistentDataType.STRING) != null) {
+            setVillagerCustomName(
+                    (Villager) event.getEntity(),
+                    persistentData.get(new NamespacedKey(plugin, nameKey),
+                            PersistentDataType.STRING),
+                    true);
+        }
+    }
+
+    /**
+     * @see VillagerNamesListener#onPlayerInteractEntity(PlayerInteractEntityEvent)
      * @param villager Villager
      * @return Whether a custom name was stored with the villager.
      */
@@ -83,6 +84,13 @@ public class EventVillagerSpawn implements Listener {
         return true;
     }
 
+    /**
+     * Sets the CustomName NBT tag of a named villager.
+     *
+     * @param villager Villager
+     * @param villagerName String
+     * @param includeProfession boolean
+     */
     static void setVillagerCustomName(Villager villager, String villagerName, boolean includeProfession) {
         String customNameString;
         if (includeProfession) {
@@ -90,7 +98,7 @@ public class EventVillagerSpawn implements Listener {
             profession = profession.substring(0, 1).toUpperCase() + profession.substring(1).toLowerCase();
             customNameString = VillagerNames.FULL_DISPLAY_NAME_WITH_PROFESSION;
             customNameString = customNameString.replaceAll("%name%", villagerName)
-                .replaceAll("%profession%", profession);
+                    .replaceAll("%profession%", profession);
         } else {
             customNameString = VillagerNames.FULL_DISPLAY_NAME;
             customNameString = customNameString.replaceAll("%name%", villagerName);

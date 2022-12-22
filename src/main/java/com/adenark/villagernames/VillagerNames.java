@@ -9,7 +9,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.adenark.villagernames.command.HelpCommand;
-import com.adenark.villagernames.listener.EventVillagerSpawn;
+import com.adenark.villagernames.listener.VillagerNamesListener;
 
 public class VillagerNames extends JavaPlugin {
     public static VillagerNames getInstance() {
@@ -47,7 +47,7 @@ public class VillagerNames extends JavaPlugin {
         loadConfiguredVariables();
 
         getCommand("villagernames").setExecutor(new HelpCommand());
-        getServer().getPluginManager().registerEvents(new EventVillagerSpawn(), this);
+        getServer().getPluginManager().registerEvents(new VillagerNamesListener(), this);
 
         logger.log(Level.INFO, "VillagerNames has been enabled!");
         logger.log(Level.INFO, "Loaded villager names: {0}", NAMES.size());
