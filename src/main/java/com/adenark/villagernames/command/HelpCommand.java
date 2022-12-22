@@ -14,7 +14,8 @@ public class HelpCommand implements CommandExecutor {
         commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a[Config]"));
         commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', "Names loaded: " +
             VillagerNames.NAMES.size()));
-        commandSender.sendMessage("");
+        commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&',
+            "Show professions: " + VillagerNames.DISPLAY_NAMES_WITH_PROFESSION));
         return true;
     }
 }
