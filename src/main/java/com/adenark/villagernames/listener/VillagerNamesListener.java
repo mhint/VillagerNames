@@ -10,7 +10,7 @@ import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.VillagerAcquireTradeEvent;
+import org.bukkit.event.entity.VillagerCareerChangeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -40,23 +40,22 @@ public class VillagerNamesListener implements Listener {
     }
 
     /**
-     * When a villager acquires a trade, this event is fired. If configured to display professions, the villager
-     * name will append its profession.
+     * When a villager's career changes, this event is fired. If configured to display professions, the villager name
+     * will append its profession.
      *
      * @see VillagerNames#FULL_DISPLAY_NAME_WITH_PROFESSION
      * @param event VillagerAcquireTradeEvent
      */
     @EventHandler(priority = EventPriority.NORMAL)
-    public void onVillagerAcquireTrade(VillagerAcquireTradeEvent event) {
+    public void onVillagerCareerChangeEvent(VillagerCareerChangeEvent event) {
         if (!VillagerNames.DISPLAY_NAMES_WITH_PROFESSION) return;
         if (event.getEntity().customName() == null) return;
         PersistentDataContainer persistentData = event.getEntity().getPersistentDataContainer();
         if (persistentData.get(new NamespacedKey(plugin, nameKey), PersistentDataType.STRING) != null) {
             setVillagerCustomName(
-                    (Villager) event.getEntity(),
-                    persistentData.get(new NamespacedKey(plugin, nameKey),
-                            PersistentDataType.STRING),
-                    true);
+                event.getEntity(),
+                persistentData.get(new NamespacedKey(plugin, nameKey), PersistentDataType.STRING),
+                event.getProfession());
         }
     }
 
@@ -78,8 +77,7 @@ public class VillagerNamesListener implements Listener {
         persistentData.set(new NamespacedKey(plugin, nameKey), PersistentDataType.STRING, villagerName);
 
         // Set villager's custom name
-        setVillagerCustomName(villager, villagerName, VillagerNames.DISPLAY_NAMES_WITH_PROFESSION
-            && villager.getProfession() != Villager.Profession.NONE);
+        setVillagerCustomName(villager, villagerName, villager.getProfession());
         if (VillagerNames.SET_CUSTOM_NAME_VISIBLE) villager.setCustomNameVisible(true);
         return true;
     }
@@ -89,16 +87,16 @@ public class VillagerNamesListener implements Listener {
      *
      * @param villager Villager
      * @param villagerName String
-     * @param includeProfession boolean
+     * @param profession Villager.Profession
      */
-    static void setVillagerCustomName(Villager villager, String villagerName, boolean includeProfession) {
+    static void setVillagerCustomName(Villager villager, String villagerName, Villager.Profession profession) {
         String customNameString;
-        if (includeProfession) {
-            String profession = villager.getProfession().name();
-            profession = profession.substring(0, 1).toUpperCase() + profession.substring(1).toLowerCase();
+        if (VillagerNames.DISPLAY_NAMES_WITH_PROFESSION && profession != Villager.Profession.NONE) {
+            String professionString = profession.name();
+            professionString = professionString.substring(0, 1).toUpperCase() + professionString.substring(1).toLowerCase();
             customNameString = VillagerNames.FULL_DISPLAY_NAME_WITH_PROFESSION;
             customNameString = customNameString.replaceAll("%name%", villagerName)
-                    .replaceAll("%profession%", profession);
+                .replaceAll("%profession%", professionString);
         } else {
             customNameString = VillagerNames.FULL_DISPLAY_NAME;
             customNameString = customNameString.replaceAll("%name%", villagerName);
