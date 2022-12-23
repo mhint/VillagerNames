@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "com.adenark"
-version = "1.0-SNAPSHOT"
+version = "1.0"
 description = ""
 
 java {
